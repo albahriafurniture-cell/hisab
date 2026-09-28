@@ -1,0 +1,39 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+android {
+    namespace = "com.hisab.finance"
+    compileSdk = 34
+
+    signingConfigs {
+        release {
+            // Same self-signed key as the earlier sideload builds, so this
+            // installs as an update over them without uninstall/data loss.
+            storeFile = file("hisab-release.keystore")
+            storePassword = "hisab123"
+            keyAlias = "hisab"
+            keyPassword = "hisab123"
+        }
+    }
+
+    defaultConfig {
+        applicationId = "com.hisab.finance"
+        minSdkVersion = flutter.minSdkVersion
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0.0"
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.release
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}
